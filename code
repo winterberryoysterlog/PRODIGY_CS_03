@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Password Strength Checker</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <h1>Password Strength Checker</h1>
+    <input type="password" id="password" placeholder="Enter your password">
+    <button onclick="checkPassword()">Check Strength</button>
+    <p id="feedback"></p>
+
+    <script>
+    function checkPassword() {
+      const password = document.getElementById('password').value;
+      const feedback = document.getElementById('feedback');
+      let strength = 0;
+
+      // Check password length
+      if (password.length >= 8) {
+        strength++;
+      }
+
+      // Check for uppercase letter
+      if (/[A-Z]/.test(password)) {
+        strength++;
+      }
+
+      // Check for lowercase letter
+      if (/[a-z]/.test(password)) {
+        strength++;
+      }
+
+      // Check for number
+      if (/\d/.test(password)) {
+        strength++;
+      }
+
+      // Check for special character
+      if (/[^a-zA-Z0-9]/.test(password)) {
+        strength++;
+      }
+
+      // Update feedback based on strength
+      let message;
+      if (strength < 3) {
+        message = "Weak password. Please consider using a longer password with a mix of uppercase, lowercase letters, numbers, and special characters.";
+        feedback.classList.add('weak');
+      } else if (strength === 3 || strength === 4) {
+        message = "Medium strength password. Consider adding more complexity for better security.";
+        feedback.classList.add('medium');
+      } else {
+        message = "Strong password! Keep it safe and don't share it with anyone.";
+        feedback.classList.add('strong');
+      }
+
+      feedback.textContent = message;
+      feedback.classList.remove('weak', 'medium', 'strong'); // Clear previous class
+    }
+    </script>
+</body>
+</html>
